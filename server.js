@@ -5,24 +5,27 @@ const fs = require("fs");
 const app = express();
 
 //==== initial port
-const PORT = processs.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 //========EXPRESS
 
 
 app.use(express.urlencoded({ extended:true }));
 app.use(express.json());
-app.use(epxress.static("public"));
+app.use(express.static('public'));
 
 //====ROUTING 
+    //========= page routes
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "/public/index.html"));
+});
 
+app.get("/notes", function(req,res) {
+  res.sendFile(path.join(__dirname, "/public/notes.html"));
+});
 
-//========= page routes
+//========= api/data/JSON routes
 
-
-//========= api routes
-
-//======== data routes
 
 
 //======= listener
