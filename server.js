@@ -26,14 +26,35 @@ app.get("/notes", function(req,res) {
 
 //========= api/data/JSON routes
 
+//GET notes from database
 app.get("/api/notes", function(req,res) {
   fs.readFile("./db/db.json", "utf8", function(error, data){
     if (error) throw error;
     data = JSON.parse(data);
     res.json(data);
-    console.log(data)
-  })
-})
+    // console.log(data)
+  });
+});
+
+//save/POST notes to database
+
+app.post("/api/notes", function(req,res){
+  const writeNote = {title: req.body.title, text: req.body.text };
+  fs.readFile("./db/db.json", "utf8", function(error, data){
+    if (error) throw error;
+    data = JSON.parse(data);
+    data.push(writeNote)
+    data = JSON.stringify(data)
+    console.log(data);
+    fs.writeFile("./db/db.json", data, function(error){
+      if (error) throw error
+      res.json(writeNote)  
+    });
+  });
+});
+
+
+
 
 //======= listener
 
