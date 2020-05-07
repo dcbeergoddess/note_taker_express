@@ -26,7 +26,14 @@ app.get("/notes", function(req,res) {
 
 //========= api/data/JSON routes
 
-
+app.get("/api/notes", function(req,res) {
+  fs.readFile("./db/db.json", "utf8", function(error, data){
+    if (error) throw error;
+    data = JSON.parse(data);
+    res.json(data);
+    console.log(data)
+  })
+})
 
 //======= listener
 
